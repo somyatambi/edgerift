@@ -1028,10 +1028,10 @@ export default function SimulatorTrade() {
       </div>
 
       {/* ══ BODY ═════════════════════════════════════════════════════════════ */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col lg:flex-row flex-1 lg:overflow-hidden overflow-y-auto">
 
         {/* ── LEFT: Chart + Bottom Panel ─────────────────────────────────── */}
-        <div className="flex flex-1 flex-col overflow-hidden min-w-0">
+        <div className="flex flex-col overflow-hidden min-w-0 lg:flex-1">
 
           {/* Pair + TF toolbar */}
           <div className="shrink-0 flex items-center gap-3 px-4 h-10"
@@ -1054,17 +1054,17 @@ export default function SimulatorTrade() {
                 </button>
               ))}
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.04)' }}>{candles.length} candles</span>
-            <span className="ml-auto text-[10px]" style={{ color: 'rgba(255,255,255,0.12)' }}>scroll = zoom · drag = pan</span>
+            <span className="hidden sm:inline text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.04)' }}>{candles.length} candles</span>
+            <span className="ml-auto hidden lg:inline text-[10px]" style={{ color: 'rgba(255,255,255,0.12)' }}>scroll = zoom · drag = pan</span>
           </div>
 
           {/* TVChart (includes indicator/tool toolbar + RSI panel) */}
-          <div className="flex-1 overflow-hidden flex flex-col" style={{ background: 'rgba(5,10,20,0.9)', minHeight: 0 }}>
+          <div className="h-[320px] lg:flex-1 overflow-hidden flex flex-col" style={{ background: 'rgba(5,10,20,0.9)', minHeight: 0 }}>
             <TVChart candles={candles} liveCandle={liveCandle} positions={visiblePositions} fetchError={fetchError} />
           </div>
 
           {/* ── Positions / History panel ── */}
-          <div className="shrink-0 flex flex-col" style={{ height: 220, background: 'rgba(4,9,20,0.98)', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="shrink-0 flex flex-col h-[160px] lg:h-[220px]" style={{ background: 'rgba(4,9,20,0.98)', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="shrink-0 flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
               {(['positions', 'history'] as const).map(tab => (
                 <button key={tab} onClick={() => setActiveTab(tab)} className="px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all"
@@ -1177,7 +1177,7 @@ export default function SimulatorTrade() {
         </div>
 
         {/* ── RIGHT: Order Panel ───────────────────────────────────────────── */}
-        <div className="shrink-0 flex flex-col overflow-y-auto" style={{ width: 300, borderLeft: '1px solid rgba(255,255,255,0.07)', background: 'rgba(4,9,20,0.98)' }}>
+        <div className="w-full lg:w-[300px] lg:shrink-0 flex flex-col overflow-y-auto border-t border-white/[0.07] lg:border-t-0 lg:border-l" style={{ background: 'rgba(4,9,20,0.98)' }}>
           <div className="px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
             <h3 className="text-sm font-black tracking-wide" style={{ color: '#e2e8f0' }}>Place Order</h3>
             <p className="text-[10px] mt-0.5 font-bold" style={{ color: selectedPairConfig.color }}>{selectedPairConfig.label} · {selectedInterval}</p>
