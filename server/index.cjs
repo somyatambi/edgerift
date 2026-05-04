@@ -105,10 +105,10 @@ const hasInterval_pos    = positionsInfo.some(col => col.name === 'interval');
 if (!hasPairPositions && positionsInfo.length > 0) {
   try { db.exec("ALTER TABLE sim_positions ADD COLUMN pair TEXT NOT NULL DEFAULT 'BTCUSDT'"); console.log('Migrated sim_positions: added pair'); } catch(e) { if (!e.message.includes('duplicate')) throw e; }
 }
-if (!hasClosePrice) {
+if (!hasClosePrice && positionsInfo.length > 0) {
   try { db.exec("ALTER TABLE sim_positions ADD COLUMN close_price REAL"); console.log('Migrated sim_positions: added close_price'); } catch(e) { if (!e.message.includes('duplicate')) throw e; }
 }
-if (!hasPnlPct) {
+if (!hasPnlPct && positionsInfo.length > 0) {
   try { db.exec("ALTER TABLE sim_positions ADD COLUMN pnl_pct REAL DEFAULT 0"); console.log('Migrated sim_positions: added pnl_pct'); } catch(e) { if (!e.message.includes('duplicate')) throw e; }
 }
 
