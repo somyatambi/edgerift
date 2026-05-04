@@ -105,8 +105,6 @@ const PAIRS: PairConfig[] = [
   { label: 'PEPE DRAGON', ticker: 'PEPDRG', value: 'ETHUSDT', intervals: ['5m'],        color: '#a855f7' },
 ];
 
-const PAIR_TICKER: Record<string, string> = Object.fromEntries(PAIRS.map(p => [p.value, p.ticker]));
-
 const GREEN = '#00ffc8';
 const RED   = '#f87171';
 const DIM   = 'rgba(255,255,255,0.32)';
@@ -273,7 +271,7 @@ function TVChart({ candles, liveCandle, positions, fetchError }: TVChartProps) {
         height: rsiContainerRef.current.clientHeight,
       });
       const rsiLine = rsiChart.addSeries(LineSeries, {
-        color: '#f59e0b', lineWidth: 1.5 as const,
+        color: '#f59e0b', lineWidth: 2 as const,
         priceLineVisible: false, lastValueVisible: true,
       });
       rsiLine.createPriceLine({ price: 70, color: 'rgba(248,113,113,0.5)', lineWidth: 1 as const, lineStyle: 1 as const, axisLabelVisible: false });
