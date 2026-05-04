@@ -31,19 +31,21 @@ const hasCandleIndex = tableInfo.some(col => col.name === 'candle_index');
 const hasLastTradeDate = tableInfo.some(col => col.name === 'last_trade_date');
 
 if (!hasPair) {
-  console.log('Migrating sim_challenges table to new schema...');
-  db.exec("ALTER TABLE sim_challenges ADD COLUMN pair TEXT NOT NULL DEFAULT 'BTCUSDT'");
+  if (tableInfo.length > 0) {
+    console.log('Migrating sim_challenges table to new schema...');
+    db.exec("ALTER TABLE sim_challenges ADD COLUMN pair TEXT NOT NULL DEFAULT 'BTCUSDT'");
+  }
 }
-if (!hasInterval) {
+if (!hasInterval && tableInfo.length > 0) {
   db.exec("ALTER TABLE sim_challenges ADD COLUMN interval TEXT NOT NULL DEFAULT '5m'");
 }
-if (!hasCurrentDayTrades) {
+if (!hasCurrentDayTrades && tableInfo.length > 0) {
   db.exec("ALTER TABLE sim_challenges ADD COLUMN current_day_trades INTEGER DEFAULT 0");
 }
-if (!hasCandleIndex) {
+if (!hasCandleIndex && tableInfo.length > 0) {
   db.exec("ALTER TABLE sim_challenges ADD COLUMN candle_index INTEGER DEFAULT 100");
 }
-if (!hasLastTradeDate) {
+if (!hasLastTradeDate && tableInfo.length > 0) {
   db.exec("ALTER TABLE sim_challenges ADD COLUMN last_trade_date TEXT");
 }
 
@@ -71,25 +73,25 @@ const hasTypeCol = tradesInfo.some(col => col.name === 'type');
 const hasTradesSL = tradesInfo.some(col => col.name === 'stop_loss');
 const hasTradesTP = tradesInfo.some(col => col.name === 'take_profit');
 
-if (!hasAction) {
+if (!hasAction && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN action TEXT NOT NULL DEFAULT 'open'");
 }
-if (!hasPairTrades) {
+if (!hasPairTrades && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN pair TEXT NOT NULL DEFAULT 'BTCUSDT'");
 }
-if (!hasDirection) {
+if (!hasDirection && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN direction TEXT NOT NULL DEFAULT 'long'");
 }
-if (!hasBalanceAfter) {
+if (!hasBalanceAfter && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN balance_after REAL NOT NULL DEFAULT 0");
 }
-if (!hasTypeCol) {
+if (!hasTypeCol && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN type TEXT DEFAULT 'market'");
 }
-if (!hasTradesSL) {
+if (!hasTradesSL && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN stop_loss REAL");
 }
-if (!hasTradesTP) {
+if (!hasTradesTP && tradesInfo.length > 0) {
   db.exec("ALTER TABLE sim_trades ADD COLUMN take_profit REAL");
 }
 
