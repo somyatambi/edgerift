@@ -1,0 +1,52 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Database files
+server/algotrd.db
+server/algotrd.db-shm
+server/algotrd.db-wal
+
+# Raw data archives and directories
+*.zip
+server/data/btc-usdt_5m/
+server/data/btc-usdt_15m/
+server/data/ethusdt_5m/
+
+# Temporary migration/utility scripts
+fix-*.cjs
+fix-*.js
+migrate.cjs
+migrate.js
+
+# Misc large assets
+1280324.jpg
+
+# Claude Code workspace
+.claude/
+
+# Environment variables
+.env
+.env.*
+!.env.example

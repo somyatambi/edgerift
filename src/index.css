@@ -1,0 +1,133 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-background: #030a14;
+  --color-foreground: #dde6f0;
+
+  --color-card: #07111f;
+  --color-card-foreground: #dde6f0;
+
+  --color-primary: #00ffc8;
+  --color-primary-foreground: #030a14;
+
+  --color-secondary: #3b82f6;
+  --color-secondary-foreground: #f8fafc;
+
+  --color-accent: #8b5cf6;
+  --color-accent-foreground: #f8fafc;
+
+  --color-muted: #0c1a2e;
+  --color-muted-foreground: #5a7394;
+
+  --color-border: #0e1e33;
+  --color-input: #0c1a2e;
+  --color-ring: #00ffc8;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+}
+
+@layer base {
+  *, ::before, ::after {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased;
+    /* Dot-grid pattern fixed to viewport */
+    background-image: radial-gradient(circle, rgba(0, 255, 200, 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-attachment: fixed;
+  }
+  html { scroll-behavior: smooth; }
+  ::selection {
+    background-color: rgba(0, 255, 200, 0.18);
+    color: #00ffc8;
+  }
+}
+
+/* ─── Orb keyframes ──────────────────────────────────────────────────────── */
+@keyframes orb-drift-1 {
+  0%,100% { transform: translate(0,0) scale(1); opacity: 0.12; }
+  25%      { transform: translate(35px,-25px) scale(1.07); opacity: 0.18; }
+  50%      { transform: translate(-15px,30px) scale(0.94); opacity: 0.13; }
+  75%      { transform: translate(-28px,-12px) scale(1.09); opacity: 0.16; }
+}
+@keyframes orb-drift-2 {
+  0%,100% { transform: translate(0,0) scale(1); opacity: 0.09; }
+  33%     { transform: translate(-45px,22px) scale(1.12); opacity: 0.15; }
+  66%     { transform: translate(22px,-32px) scale(0.88); opacity: 0.07; }
+}
+@keyframes orb-drift-3 {
+  0%,100% { transform: translate(0,0) scale(1); opacity: 0.06; }
+  50%     { transform: translate(18px,-28px) scale(1.18); opacity: 0.12; }
+}
+.orb-1 { animation: orb-drift-1 16s ease-in-out infinite; }
+.orb-2 { animation: orb-drift-2 22s ease-in-out infinite; }
+.orb-3 { animation: orb-drift-3 28s ease-in-out infinite; }
+
+/* ─── Noise grain overlay (applied via .noise class on root) ─────────────── */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ─── Glass cards ────────────────────────────────────────────────────────── */
+.card-glass {
+  background: rgba(7, 17, 31, 0.65);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.card-glass-primary {
+  background: linear-gradient(135deg, rgba(0,255,200,0.045) 0%, rgba(7,17,31,0.82) 100%);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0,255,200,0.16);
+}
+.card-glass-secondary {
+  background: linear-gradient(135deg, rgba(59,130,246,0.045) 0%, rgba(7,17,31,0.82) 100%);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(59,130,246,0.16);
+}
+.card-glass-accent {
+  background: linear-gradient(135deg, rgba(139,92,246,0.045) 0%, rgba(7,17,31,0.82) 100%);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(139,92,246,0.16);
+}
+
+/* ─── Gradient text ──────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #00ffc8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-accent {
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Tier badges ────────────────────────────────────────────────────────── */
+.badge-free    { background: rgba(90,115,148,0.12); color: #7a93af; border: 1px solid rgba(90,115,148,0.28); }
+.badge-member  { background: rgba(59,130,246,0.10); color: #60a5fa; border: 1px solid rgba(59,130,246,0.28); }
+.badge-premium { background: rgba(0,255,200,0.07);  color: #00ffc8; border: 1px solid rgba(0,255,200,0.28); }
+
+/* ─── Misc utilities ─────────────────────────────────────────────────────── */
+.text-glow {
+  text-shadow: 0 0 28px rgba(0,255,200,0.45), 0 0 60px rgba(0,255,200,0.15);
+}
+.scrollbar-thin::-webkit-scrollbar { width: 5px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(0,255,200,0.2); border-radius: 99px; }
+
