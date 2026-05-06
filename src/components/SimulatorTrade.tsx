@@ -985,7 +985,7 @@ export default function SimulatorTrade() {
   }
 
   return (
-    <div className="fixed inset-0 md:left-64 flex flex-col overflow-hidden" style={{ background: '#050b18' }}>
+    <div className="fixed inset-0 md:left-64 flex flex-col" style={{ background: '#050b18' }}>
 
       {/* ══ TOP STATS BAR ════════════════════════════════════════════════════ */}
       <div className="shrink-0 flex items-center gap-2 px-4 h-11 overflow-x-auto"
@@ -1050,10 +1050,10 @@ export default function SimulatorTrade() {
       </div>
 
       {/* ══ BODY ═════════════════════════════════════════════════════════════ */}
-      <div className="flex flex-col lg:flex-row flex-1 lg:overflow-hidden overflow-y-auto">
+      <div className="flex flex-col lg:flex-row flex-1 overflow-y-auto lg:overflow-hidden">
 
         {/* ── LEFT: Chart + Bottom Panel ─────────────────────────────────── */}
-        <div className="flex flex-col lg:overflow-hidden min-w-0 lg:flex-1 shrink-0 lg:shrink">
+        <div className="flex flex-col lg:overflow-hidden min-w-0 lg:flex-1">
 
           {/* Pair + TF toolbar */}
           <div className="shrink-0 flex items-center gap-3 px-4 h-10"
