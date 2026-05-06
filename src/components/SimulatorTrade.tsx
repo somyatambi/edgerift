@@ -822,6 +822,28 @@ export default function SimulatorTrade() {
   const [showFailed, setShowFailed] = useState(false);
   const [failReason, setFailReason] = useState('');
 
+  // ── Chart resize drag ──────────────────────────────────────────────────────
+  const [chartHeight, setChartHeight] = useState(620);
+  const dragStartY   = useRef<number | null>(null);
+  const dragStartH   = useRef<number>(620);
+
+  const onResizerPointerDown = useCallback((e: React.PointerEvent) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragStartY.current = e.clientY;
+    dragStartH.current = chartHeight;
+  }, [chartHeight]);
+
+  const onResizerPointerMove = useCallback((e: React.PointerEvent) => {
+    if (dragStartY.current === null) return;
+    const delta = e.clientY - dragStartY.current;
+    setChartHeight(Math.max(200, Math.min(900, dragStartH.current + delta)));
+  }, []);
+
+  const onResizerPointerUp = useCallback((e: React.PointerEvent) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    dragStartY.current = null;
+  }, []);
+
   const authHeaders = useCallback(
     () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }),
     [token],
@@ -1031,7 +1053,7 @@ export default function SimulatorTrade() {
       <div className="flex flex-col lg:flex-row flex-1 lg:overflow-hidden overflow-y-auto">
 
         {/* ── LEFT: Chart + Bottom Panel ─────────────────────────────────── */}
-        <div className="flex flex-col overflow-hidden min-w-0 lg:flex-1">
+        <div className="flex flex-col lg:overflow-hidden min-w-0 lg:flex-1 shrink-0 lg:shrink">
 
           {/* Pair + TF toolbar */}
           <div className="shrink-0 flex items-center gap-3 px-4 h-10"
@@ -1059,8 +1081,23 @@ export default function SimulatorTrade() {
           </div>
 
           {/* TVChart (includes indicator/tool toolbar + RSI panel) */}
-          <div className="h-[320px] lg:flex-1 overflow-hidden flex flex-col" style={{ background: 'rgba(5,10,20,0.9)', minHeight: 0 }}>
+          <div
+            className="lg:flex-1 overflow-hidden flex flex-col"
+            style={{ background: 'rgba(5,10,20,0.9)', minHeight: 0, height: chartHeight }}
+          >
             <TVChart candles={candles} liveCandle={liveCandle} positions={visiblePositions} fetchError={fetchError} />
+          </div>
+
+          {/* ── Drag-to-resize handle (visible on mobile, hidden on desktop) ── */}
+          <div
+            className="lg:hidden shrink-0 flex items-center justify-center cursor-row-resize select-none touch-none"
+            style={{ height: 14, background: 'rgba(4,9,20,0.98)', borderTop: '1px solid rgba(0,255,200,0.12)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+            onPointerDown={onResizerPointerDown}
+            onPointerMove={onResizerPointerMove}
+            onPointerUp={onResizerPointerUp}
+            onPointerCancel={onResizerPointerUp}
+          >
+            <div style={{ width: 44, height: 4, borderRadius: 9999, background: 'rgba(0,255,200,0.35)' }} />
           </div>
 
           {/* ── Positions / History panel ── */}

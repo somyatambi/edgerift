@@ -13,6 +13,7 @@ import Signals from './components/Signals';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import RiskDisclaimer from './components/RiskDisclaimer';
+import Contact from './components/Contact';
 
 function BackgroundImage() {
   return (
@@ -191,6 +192,7 @@ export default function App() {
                 <Route path="/simulator/trade" element={<SimulatorTrade />} />
                 <Route path="/simulator/leaderboard" element={<SimulatorLeaderboard />} />
                 <Route path="/signals" element={<Signals />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/risk" element={<RiskDisclaimer />} />
@@ -209,6 +211,7 @@ export default function App() {
                   &copy; {new Date().getFullYear()} EDGERIFT Quant Trading. All rights reserved. For educational purposes only.
                 </p>
                 <div className="flex gap-6 text-xs text-muted-foreground">
+                  <Link to="/contact" className="hover:text-primary cursor-pointer transition-colors">Contact</Link>
                   <Link to="/privacy" className="hover:text-primary cursor-pointer transition-colors">Privacy</Link>
                   <Link to="/terms" className="hover:text-primary cursor-pointer transition-colors">Terms</Link>
                   <Link to="/risk" className="hover:text-[#f87171] cursor-pointer transition-colors">Risk Disclaimer</Link>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Hexagon, LogOut, ChevronDown, LayoutDashboard, Code, Info, BarChart2, Radio } from "lucide-react";
+import { Menu, X, Hexagon, LogOut, ChevronDown, LayoutDashboard, Code, Info, BarChart2, Radio, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { to: "/simulator", label: "SIMULATOR", icon: BarChart2, activeColor: "text-accent bg-accent/10", hoverColor: "hover:text-accent hover:bg-white/5" },
   { to: "/signals", label: "SIGNALS", icon: Radio, activeColor: "text-primary bg-primary/10", hoverColor: "hover:text-primary hover:bg-white/5" },
   { to: "/about",   label: "ABOUT",   icon: Info,            activeColor: "text-foreground bg-white/10", hoverColor: "hover:text-foreground hover:bg-white/5" },
+  { to: "/contact", label: "CONTACT", icon: Mail,            activeColor: "text-primary bg-primary/10",  hoverColor: "hover:text-primary hover:bg-white/5" },
 ];
 
 export default function Navigation() {
